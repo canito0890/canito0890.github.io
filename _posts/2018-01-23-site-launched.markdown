@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Joel Cano Launches Site"
 date: 2018-01-23
 ---
