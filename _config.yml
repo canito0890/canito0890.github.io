@@ -77,6 +77,9 @@ author:
 
 footer:
   links:
+    - label: "About"
+      icon: "fas fa-fw fa-user"
+      url: "/about/"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://canito0890.github.io/"
