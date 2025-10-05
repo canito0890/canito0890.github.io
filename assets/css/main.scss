@@ -1,0 +1,138 @@
+---
+---
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+/* Custom Enhancements */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced code blocks */
+.highlight {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Better link hover effects */
+a {
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Enhanced author profile card */
+.author__avatar img {
+  border: 3px solid var(--primary-color, #7a8288);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.author__avatar img:hover {
+  transform: scale(1.05);
+  border-color: var(--link-color, #52adc8);
+}
+
+/* Better spacing for post content */
+.page__content {
+  line-height: 1.8;
+}
+
+.page__content h2,
+.page__content h3,
+.page__content h4 {
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+/* Enhanced table of contents */
+.toc {
+  border: 2px solid var(--border-color, #505050);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toc__menu {
+  font-size: 0.9em;
+}
+
+/* Better blockquote styling */
+blockquote {
+  border-left: 4px solid var(--primary-color, #7a8288);
+  padding-left: 1.5em;
+  font-style: italic;
+  background-color: rgba(255, 255, 255, 0.02);
+  border-radius: 4px;
+  margin: 1.5em 0;
+  padding: 1em 1.5em;
+}
+
+/* Enhanced navigation buttons */
+.pagination,
+.page__related {
+  margin-top: 3em;
+}
+
+/* Social share buttons styling */
+.page__share {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid var(--border-color, #505050);
+}
+
+/* Footer enhancements */
+.page__footer {
+  margin-top: 3em;
+}
+
+/* Archive item improvements */
+.archive__item-title {
+  margin-bottom: 0.5em;
+  transition: color 0.3s ease;
+}
+
+.archive__item-title:hover {
+  text-decoration: underline;
+}
+
+/* Tag and category styling */
+.taxonomy__index {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.taxonomy__section {
+  padding: 1em;
+  border: 1px solid var(--border-color, #505050);
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.taxonomy__section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .page__content {
+    font-size: 0.95em;
+  }
+
+  .taxonomy__index {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print styles */
+@media print {
+  .page__footer,
+  .page__share,
+  .page__related,
+  .sidebar,
+  .masthead {
+    display: none;
+  }
+}
