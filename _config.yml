@@ -20,7 +20,7 @@
 
 title: Joel Cano
 subtitle: "Software Developer & Technology Enthusiast"
-email: joel.cano.avila@gmail.com
+email:
 description: >- # this means to ignore newlines until "baseurl:"
   Personal website and blog of Joel Cano, software developer passionate about
   technology, open source, and sharing knowledge. Explore posts about software
@@ -111,11 +111,7 @@ author:
   avatar : "/assets/images/bio-photo.jpg"
   bio    : "Software Developer | Tech Enthusiast | Lifelong Learner | Building things one line of code at a time"
   location: "Mexico"
-  email: "joel.cano.avila@gmail.com"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:joel.cano.avila@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://canito0890.github.io/"
@@ -134,9 +130,6 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/canito0890"
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:joel.cano.avila@gmail.com"
 
 # Site Header/Navigation
 masthead_title: "Joel Cano" # Overrides the website title displayed in the header

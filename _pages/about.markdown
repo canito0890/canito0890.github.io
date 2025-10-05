@@ -45,8 +45,7 @@ This website is built with:
 
 I'm always excited to connect with fellow developers, collaborate on interesting projects, or just have a conversation about technology. Feel free to reach out!
 
-- 📧 Email: [joel.cano.avila@gmail.com](mailto:joel.cano.avila@gmail.com)
-- 💻 GitHub: [@canito0890](https://github.com/canito0890)
+-  GitHub: [@canito0890](https://github.com/canito0890)
 - 🌐 Website: [canito0890.github.io](https://canito0890.github.io)
 
 Whether you have a question, suggestion, or just want to say hello, don't hesitate to get in touch!

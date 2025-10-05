@@ -119,7 +119,6 @@ This project is open source and available under the MIT License.
 
 - **Website**: [canito0890.github.io](https://canito0890.github.io)
 - **GitHub**: [@canito0890](https://github.com/canito0890)
-- **Email**: joel.cano.avila@gmail.com
 
 ---
 

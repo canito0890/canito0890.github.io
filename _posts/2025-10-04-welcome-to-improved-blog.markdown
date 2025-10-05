@@ -79,6 +79,6 @@ I'm planning to write more about:
 
 ## Feedback Welcome
 
-If you have suggestions or feedback about the site, feel free to reach out via [email](mailto:joel.cano.avila@gmail.com) or [GitHub](https://github.com/canito0890).
+If you have suggestions or feedback about the site, feel free to reach out via [GitHub](https://github.com/canito0890).
 
 Thanks for visiting, and I hope you find the content valuable! 🚀
