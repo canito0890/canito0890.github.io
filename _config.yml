@@ -25,6 +25,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Personal website and blog of Joel Cano, software developer passionate about
   technology, open source, and sharing knowledge. Explore posts about software
   development, coding insights, and tech adventures.
+
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://canito0890.github.io" # the base hostname & protocol for your site
 github_username: canito0890
@@ -38,11 +39,14 @@ name: "Joel Cano"
 # SEO and Social
 locale: "en-US"
 logo: # path to logo image, e.g. "/assets/images/logo.png"
-og_image: # Open Graph/Twitter default site image, e.g. "/assets/images/site-preview.jpg"
+og_image: /assets/images/og-image.png
 
 # Social Sharing
 twitter:
   username: # Add if you have Twitter
+  card: summary_large_image
+facebook:
+  publisher:
 linkedin:
   username: # Add if you have LinkedIn
 
@@ -108,8 +112,8 @@ plugins:
 
 author:
   name   : "Joel Cano"
-  avatar : "/assets/images/bio-photo.jpg"
-  bio    : "Software Developer | Tech Enthusiast | Lifelong Learner | Building things one line of code at a time"
+  avatar : "/assets/images/bio-photo.svg"
+  bio    : "Software Developer • Tech Enthusiast • Lifelong Learner • Building things one line of code at a time"
   location: "Mexico"
   links:
     - label: "Website"
@@ -146,7 +150,7 @@ defaults:
       author_profile: true
       read_time: true
       comments: true
-      share: true
+      share: false
       related: true
       show_date: true
       toc: true

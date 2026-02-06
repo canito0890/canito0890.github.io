@@ -6,9 +6,6 @@ main:
     url: /about/
   - title: "Posts"
     url: /posts/
-  - title: "Categories"
-    url: /categories/
-  - title: "Tags"
-    url: /tags/
   - title: "GitHub"
     url: https://github.com/canito0890
+    target: _blank

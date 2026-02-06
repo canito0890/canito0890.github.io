@@ -2,11 +2,16 @@
 layout: home
 author_profile: true
 header:
-  overlay_color: "#000"
-  overlay_filter: "0.5"
+  overlay_color: "#0f0f1e"
+  overlay_filter: "0.7"
+  overlay_image: 
 excerpt: "Welcome to my corner of the internet. Here I share thoughts on software development, technology, and continuous learning."
-intro:
-  - excerpt: 'Explore my latest posts below or check out my [GitHub](https://github.com/canito0890) for code projects.'
 ---
 
+<div class="hero-tagline">Brewing up some code</div>
+
 {% include feature_row id="intro" type="center" %}
+
+## Latest Posts
+
+Check out my recent articles below, or [browse all posts](/posts/).
