@@ -2,6 +2,33 @@
 <link href="https://cdn.jsdelivr.net/npm/geist@latest/dist/fonts/geist-sans/style.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Righteous&display=swap" rel="stylesheet">
 
+<!-- Theme Toggle Script (runs synchronously to prevent flash) -->
+<script>
+(function() {
+  const THEME_KEY = 'theme-preference';
+  const DARK_THEME = 'dark';
+  const LIGHT_THEME = 'light';
+
+  function getThemePreference() {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved) return saved;
+    
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      return LIGHT_THEME;
+    }
+    
+    return DARK_THEME;
+  }
+
+  const theme = getThemePreference();
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  // Store theme preference globally for later use
+  window.__themePreference = theme;
+})();
+</script>
+
 <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+<script defer src="/assets/js/theme-toggle.js"></script>
