@@ -2,7 +2,7 @@
 layout: home
 author_profile: true
 header:
-  overlay_color: "#0f0f1e"
+  overlay_color: "#1A1B26"
   overlay_filter: "0.7"
   overlay_image: 
 excerpt: "Welcome to my corner of the internet. Here I share thoughts on software development, technology, and continuous learning."

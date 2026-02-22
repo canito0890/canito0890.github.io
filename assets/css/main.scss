@@ -5,11 +5,11 @@
 @import "minimal-mistakes";
 
 /* ============================================
-   SYNTHWAVE DESIGN SYSTEM
-   Outrun/Retro-Futuristic Theme
+   TOKYO NIGHT DESIGN SYSTEM
+   Developer-Centric Dark Theme
    ============================================ */
 
-/* CSS Custom Properties (Design Tokens) - Tokyo Night Theme */
+/* CSS Custom Properties (Design Tokens) */
 :root {
   /* Background Colors */
   --bg-primary: #1A1B26;
@@ -39,7 +39,7 @@
   
   /* Typography */
   --font-display: 'Righteous', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-body: 'Geist', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   
   /* Spacing */
@@ -48,6 +48,15 @@
   --space-md: 1rem;
   --space-lg: 2rem;
   --space-xl: 4rem;
+  
+  /* Fluid Typography */
+  --type-hero: clamp(2rem, 5vw, 3.5rem);
+  --type-h1: clamp(1.75rem, 3.5vw, 2.75rem);
+  --type-h2: clamp(1.4rem, 2.5vw, 2rem);
+  --type-h3: clamp(1.15rem, 2vw, 1.5rem);
+  --type-h4: clamp(1rem, 1.5vw, 1.25rem);
+  --type-body: clamp(0.95rem, 1.1vw, 1.1rem);
+  --type-small: clamp(0.8rem, 0.9vw, 0.9rem);
   
   /* Transitions */
   --transition-fast: 0.2s ease;
@@ -67,8 +76,11 @@ html {
 
 body {
   font-family: var(--font-body);
+  font-size: var(--type-body);
   color: var(--text-primary);
-  background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background:
+    radial-gradient(ellipse at 85% 85%, rgba(187, 154, 247, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
   background-attachment: fixed;
   line-height: 1.7;
 }
@@ -82,11 +94,28 @@ body::before {
   right: 0;
   bottom: 0;
   background-image:
-    linear-gradient(rgba(122, 162, 247, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(122, 162, 247, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(122, 162, 247, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 162, 247, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Noise grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  mix-blend-mode: overlay;
 }
 
 /* ============================================
@@ -101,14 +130,24 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+  font-size: var(--type-h1);
+  letter-spacing: -0.02em;
   color: var(--accent-blue);
 }
 
 h2 {
+  font-size: var(--type-h2);
+  letter-spacing: -0.01em;
   color: var(--accent-purple);
 }
 
-h3, h4 {
+h3 {
+  font-size: var(--type-h3);
+  color: var(--text-primary);
+}
+
+h4 {
+  font-size: var(--type-h4);
   color: var(--text-primary);
 }
 
@@ -161,7 +200,7 @@ a[href^="http"]::before {
    ============================================ */
 
 .masthead {
-  background: rgba(15, 15, 30, 0.95);
+  background: rgba(26, 27, 38, 0.95);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border-color);
 }
@@ -186,6 +225,10 @@ a[href^="http"]::before {
 }
 
 .greedy-nav a::after {
+  display: none;
+}
+
+.greedy-nav a[href^="http"]::before {
   display: none;
 }
 
@@ -217,10 +260,13 @@ a[href^="http"]::before {
 
 .page__hero--overlay {
   background: linear-gradient(180deg,
-    rgba(15, 15, 30, 0.7) 0%,
-    rgba(26, 26, 62, 0.9) 100%
+    rgba(26, 27, 38, 0.7) 0%,
+    rgba(36, 40, 59, 0.9) 100%
   );
-  padding: 3em 0 2em;
+  padding: 3em 0 calc(2em + 30px);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), 0 100%);
+  position: relative;
+  overflow: visible;
 }
 
 .page__hero--overlay::before {
@@ -236,13 +282,32 @@ a[href^="http"]::before {
   pointer-events: none;
 }
 
+.page__hero--overlay::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(122, 162, 247, 0.08) 0%,
+    rgba(187, 154, 247, 0.04) 40%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .page__hero-image {
   filter: saturate(1.2) contrast(1.1);
 }
 
 .page__title {
   font-family: var(--font-display);
-  font-size: 2.5em;
+  font-size: var(--type-hero);
   text-align: center;
   margin-bottom: 0.3em;
   animation: fadeInUp 0.6s ease-out;
@@ -250,7 +315,7 @@ a[href^="http"]::before {
 
 .page__lead {
   font-family: var(--font-body);
-  font-size: 1.2em;
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
   color: var(--text-secondary);
   text-align: center;
   max-width: 600px;
@@ -261,7 +326,7 @@ a[href^="http"]::before {
 /* Tagline with blinking cursor - styled for content area */
 .hero-tagline {
   font-family: var(--font-mono);
-  font-size: 1.1em;
+  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
   color: var(--accent-cyan);
   text-align: center;
   margin: 1em 0;
@@ -306,12 +371,6 @@ a[href^="http"]::before {
   padding: 1.5em;
   margin-bottom: 1.5em;
   transition: all var(--transition-medium);
-}
-
-.archive__item:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--glow-purple);
-  border-color: rgba(187, 154, 247, 0.4);
 }
 
 .toc,
@@ -482,6 +541,8 @@ a[href^="http"]::before {
    ============================================ */
 
 blockquote {
+  position: relative;
+  overflow: visible;
   border-left: 4px solid var(--accent-purple);
   background: rgba(187, 154, 247, 0.05);
   padding: 1em 1.5em;
@@ -489,6 +550,19 @@ blockquote {
   font-style: italic;
   color: var(--text-secondary);
   border-radius: 0 8px 8px 0;
+}
+
+blockquote::before {
+  content: '"';
+  position: absolute;
+  top: -0.3em;
+  left: -0.15em;
+  font-family: var(--font-display);
+  font-size: 4em;
+  color: var(--accent-purple);
+  opacity: 0.12;
+  line-height: 1;
+  pointer-events: none;
 }
 
 blockquote p:last-child {
@@ -581,7 +655,7 @@ td {
 }
 
 tr:hover td {
-  background: rgba(0, 217, 255, 0.05);
+  background: rgba(125, 207, 255, 0.05);
 }
 
 /* ============================================
@@ -589,7 +663,7 @@ tr:hover td {
    ============================================ */
 
 .page__footer {
-  background: rgba(15, 15, 30, 0.95);
+  background: rgba(26, 27, 38, 0.95);
   border-top: 1px solid var(--border-color);
   padding: 2em 0;
   margin-top: 3em;
@@ -633,7 +707,7 @@ tr:hover td {
 }
 
 .pagination--pager:hover {
-  background: rgba(0, 217, 255, 0.1);
+  background: rgba(125, 207, 255, 0.1);
   border-color: var(--accent-cyan);
 }
 
@@ -654,11 +728,40 @@ tr:hover td {
 }
 
 .notice--warning {
-  border-left-color: var(--accent-blue);
+  border-left-color: var(--accent-orange);
 }
 
 .notice--success {
-  border-left-color: #00ff88;
+  border-left-color: var(--accent-green);
+}
+
+.notice--danger {
+  border-left-color: var(--accent-red);
+}
+
+/* Date metadata styling */
+.page__meta,
+.archive__item .page__meta {
+  color: var(--accent-orange);
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  letter-spacing: 0.02em;
+}
+
+/* Mark/highlight styling */
+mark {
+  background: rgba(224, 175, 104, 0.15);
+  color: var(--accent-yellow);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+/* Blockquote citation */
+blockquote cite,
+blockquote footer {
+  color: var(--accent-yellow);
+  font-style: normal;
+  font-size: 0.9em;
 }
 
 /* ============================================
@@ -718,28 +821,14 @@ tr:hover td {
    ============================================ */
 
 @media (max-width: 1024px) {
-  .page__title {
-    font-size: 3em;
-  }
-  
   .sidebar {
     margin-top: 2em;
   }
 }
 
 @media (max-width: 768px) {
-  .page__title {
-    font-size: 2.2em;
-  }
-  
   .page__lead {
-    font-size: 1.1em;
     padding: 0 1em;
-  }
-  
-  .hero-tagline {
-    font-size: 1.1em;
-    margin: 1.5em 1em;
   }
   
   .archive__item,
@@ -764,37 +853,18 @@ tr:hover td {
     display: none;
   }
   
-  .archive__item-title {
-    font-size: 1.3em;
-  }
-  
-  .page__content h2 {
-    font-size: 1.6em;
-  }
-  
   .author__avatar img {
     max-width: 120px;
   }
 }
 
 @media (max-width: 480px) {
-  .page__title {
-    font-size: 1.8em;
-  }
-  
   .page__hero--overlay {
     padding: 3em 0 2em;
   }
   
-  .hero-tagline {
-    font-size: 1em;
-    padding: 0.75em;
-    margin: 1em 0.5em;
-  }
-  
   .btn {
     padding: 0.6em 1.2em;
-    font-size: 0.9em;
   }
   
   .greedy-nav .visible-links {
@@ -848,6 +918,20 @@ tr:hover td {
   a::after {
     display: none;
   }
+  
+  /* Hide decorative elements */
+  body::before,
+  body::after,
+  .page__hero--overlay::before,
+  .page__hero--overlay::after {
+    display: none;
+  }
+  
+  /* Disable animations */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* ============================================
@@ -870,7 +954,7 @@ tr:hover td {
 
 /* Staggered page load animation */
 .page__content > * {
-  animation: fadeInUp 0.5s ease-out backwards;
+  animation: fadeInUp 0.5s ease-out both;
 }
 
 .page__content > *:nth-child(1) { animation-delay: 0.1s; }
@@ -878,3 +962,39 @@ tr:hover td {
 .page__content > *:nth-child(3) { animation-delay: 0.3s; }
 .page__content > *:nth-child(4) { animation-delay: 0.4s; }
 .page__content > *:nth-child(5) { animation-delay: 0.5s; }
+
+/* Hero title gradient sweep */
+.page__title {
+  background: linear-gradient(
+    90deg,
+    var(--accent-blue) 0%,
+    var(--accent-purple) 40%,
+    var(--accent-cyan) 60%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientSweep 1.5s ease-out forwards, fadeInUp 0.6s ease-out;
+}
+
+@keyframes gradientSweep {
+  from { background-position: 100% 50%; }
+  to { background-position: 0% 50%; }
+}
+
+/* Scroll-triggered animations — progressive enhancement only */
+@supports (animation-timeline: view()) {
+  .archive__item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.6s ease-out both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  .archive__item:nth-child(even) {
+    animation-delay: 0.1s;
+  }
+}

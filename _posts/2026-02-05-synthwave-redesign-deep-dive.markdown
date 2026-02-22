@@ -2,15 +2,18 @@
 title: "Behind the Screens: A Deep Dive into My Site's Synthwave Redesign"
 date: 2026-02-05
 categories: [design, web-development, process]
-tags: [jekyll, minimal-mistakes, synthwave, css, frontend-design]
+tags: [jekyll, minimal-mistakes, synthwave, tokyo-night, css, frontend-design]
 excerpt: "A detailed look at how I transformed my personal site with an Outrun/Synthwave aesthetic, complete with the planning process, design decisions, and technical implementation using opencode."
 header:
-  overlay_color: "#0f0f1e"
+  overlay_color: "#1A1B26"
   overlay_filter: "0.5"
 toc: true
 toc_label: "What We'll Cover"
 toc_icon: "palette"
 ---
+
+> **Note (February 2026):** This post was written during the initial design concept phase when the site used an Outrun/Synthwave palette. The design has since evolved into a **Tokyo Night** aesthetic with updated colors, Geist typography, and enhanced visual effects. The design process and architectural decisions described here remain accurate — only the specific color values have changed.
+{: .notice--info}
 
 ## Introduction
 

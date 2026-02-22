@@ -15,11 +15,13 @@ I'm **Joel Cano**, a passionate software developer who loves crafting elegant so
 
 ## What I Do
 
-I'm a software developer with a keen interest in building reliable, scalable, and maintainable applications. I believe in the power of clean code, continuous learning, and sharing knowledge with the community.
+I'm a software developer with a deep focus on **software architecture** and building reliable, scalable, and maintainable applications. I specialize in **Ruby on Rails** and **JavaScript** development, crafting well-architected systems that balance pragmatism with elegant design. I believe in the power of clean code, thoughtful architecture, continuous learning, and sharing knowledge with the community.
 
 ## My Interests
 
-- **Software Development**: From design patterns to best practices, I'm always exploring ways to write better code
+- **Software Architecture**: Designing scalable systems, exploring architectural patterns, and optimizing code organization at scale
+- **Ruby on Rails & JavaScript**: Building full-stack applications with elegant, maintainable code
+- **Design Patterns**: From SOLID principles to domain-driven design, studying how great architectures are structured
 - **Open Source**: Contributing to and learning from the global developer community  
 - **Technology Trends**: Staying current with emerging technologies and industry developments
 - **Problem Solving**: Finding creative solutions to technical challenges
@@ -30,11 +32,11 @@ I'm a software developer with a keen interest in building reliable, scalable, an
 - Python
 - JavaScript/TypeScript
 - Ruby
-- Go
 
 ### Frameworks & Tools
+- **Ruby on Rails** - Full-stack web development
+- **JavaScript/Node.js** - Backend and frontend development
 - React / Vue.js
-- Node.js
 - Django / Flask
 - Docker
 - Git
