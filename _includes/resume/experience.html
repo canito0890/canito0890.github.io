@@ -1,0 +1,31 @@
+{%- comment -%}
+Shared by /resume/ and the print layout. `engagement` (e.g. "Contract") is
+optional and renders as a badge next to the role.
+{%- endcomment -%}
+<div class="resume-entries">
+{%- for job in site.data.resume.experience %}
+  <div class="resume-entry">
+    <div class="resume-entry__head">
+      <h3 class="resume-entry__role">{{ job.role }}
+        {%- if job.engagement %} <span class="resume-entry__engagement">{{ job.engagement }}</span>{% endif -%}
+      </h3>
+      <span class="resume-entry__dates">{{ job.start }} &ndash; {{ job.end }}</span>
+    </div>
+    <p class="resume-entry__org">{{ job.company }}{% if job.location %} <span class="resume-entry__location">&middot; {{ job.location }}</span>{% endif %}</p>
+    {%- if job.highlights and job.highlights.size > 0 %}
+    <ul class="resume-entry__highlights">
+      {%- for highlight in job.highlights %}
+      <li>{{ highlight }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+    {%- if job.tech and job.tech.size > 0 %}
+    <p class="resume-entry__tech">
+      {%- for item in job.tech -%}
+      <span class="resume-tech">{{ item }}</span>
+      {%- endfor -%}
+    </p>
+    {%- endif %}
+  </div>
+{%- endfor %}
+</div>

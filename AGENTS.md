@@ -1,8 +1,13 @@
 # AGENTS.md - Coding Guidelines for Joel Cano's Website
 
-This is a Jekyll-based personal blog hosted on GitHub Pages using the Minimal Mistakes theme.
+This is a Jekyll-based personal blog and résumé site hosted on GitHub Pages using the Minimal Mistakes theme.
 
 ## Build Commands
+
+Ruby 3.4.1 is required and is selected by `.mise.toml` (not `.ruby-version` — mise
+ignores that file unless ruby is added to `idiomatic_version_file_enable_tools`).
+Run `mise trust && mise install` once; without the right Ruby, `bundle exec jekyll`
+resolves against the system Ruby and fails with "command not found: jekyll".
 
 ```bash
 # Install dependencies
@@ -22,6 +27,9 @@ JEKYLL_ENV=production bundle exec jekyll build
 
 # Clean build cache
 bundle exec jekyll clean
+
+# Regenerate the résumé PDF and .docx from _data/resume.yml
+bin/build-resume
 ```
 
 ## Project Structure
@@ -29,12 +37,41 @@ bundle exec jekyll clean
 ```
 ├── _config.yml           # Site configuration
 ├── _data/navigation.yml  # Navigation menu
-├── _pages/               # Static pages (About, 404, archives)
+├── _data/resume.yml      # Résumé source of truth (no contact details — see below)
+├── _includes/resume/     # Résumé partials shared by the web page and the PDF
+├── _layouts/resume-print.html  # Standalone print layout used to make the PDF
+├── _pages/               # Static pages (About, Résumé, 404, archives)
 ├── _posts/               # Blog posts (YYYY-MM-DD-title.markdown)
+├── _resume/              # Résumé tooling (docx generator + pandoc style template)
 ├── assets/css/main.scss  # Custom styles
+├── assets/files/         # Public downloads, incl. the résumé PDF
+├── bin/build-resume      # Regenerates the PDF and .docx
 ├── index.markdown        # Homepage
 └── Gemfile               # Ruby dependencies
 ```
+
+## Résumé
+
+`_data/resume.yml` is the single source of truth for `/resume/`, the public PDF, the
+private PDF, and the editable `.docx`. Never hand-edit the generated artifacts —
+edit the YAML and run `bin/build-resume`.
+
+Rules when touching résumé files:
+
+- **No contact details in `_data/resume.yml`** — it is public in this repo. Email and
+  phone live in `tmp/resume.private.yml` (gitignored) and reach only the private PDF
+  and the `.docx`. `bin/build-resume` fails the build if the email hits public output.
+- **Keep the two page sources in sync.** `_pages/resume.md` (themed) and
+  `_pages/resume-print.html` (PDF) must include the same partials in the same order.
+- **`_layouts/resume-print.html` must stay self-contained** — all CSS inline, system
+  fonts only. It is rendered from a `file://` URL where external stylesheets and
+  webfonts silently fail to load.
+- `_pages/resume-print.html` is `published: false` on purpose; only
+  `jekyll build --unpublished` (which `bin/build-resume` uses) emits it.
+- Commit `assets/files/joel-cano-resume.pdf` alongside any `_data/resume.yml` change,
+  or the site will serve a stale résumé.
+
+See README.md for the full pipeline description.
 
 ## Content Creation Guidelines
 

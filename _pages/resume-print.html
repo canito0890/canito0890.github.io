@@ -1,0 +1,30 @@
+---
+layout: resume-print
+permalink: /resume/print/
+published: false
+sitemap: false
+sidebar: false
+author_profile: false
+---
+{%- comment -%}
+  Source page for the PDF only — `published: false` keeps it out of every normal
+  build and off the deployed site. `bin/build-resume` renders it with
+  `jekyll build --unpublished` into a scratch directory, then prints it to PDF.
+
+  Sections mirror _pages/resume.md so both surfaces stay in sync; the h2 headings
+  live here (partials only emit h3 and below).
+{%- endcomment -%}
+
+{% include resume/summary.html %}
+
+<h2>Skills</h2>
+{% include resume/skills.html %}
+
+<h2>Experience</h2>
+{% include resume/experience.html %}
+
+<h2>Education</h2>
+{% include resume/education.html %}
+
+<h2>Certifications</h2>
+{% include resume/certifications.html %}

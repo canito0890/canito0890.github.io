@@ -1,0 +1,15 @@
+{%- comment -%}
+Shared by /resume/ and the print layout.
+{%- endcomment -%}
+<div class="resume-skills">
+{%- for group in site.data.resume.skills %}
+  <div class="resume-skill-group">
+    <h3 class="resume-skill-group__name">{{ group.name }}</h3>
+    <p class="resume-skill-group__items">
+      {%- for keyword in group.keywords -%}
+      <span class="resume-tech">{{ keyword }}</span>
+      {%- endfor -%}
+    </p>
+  </div>
+{%- endfor %}
+</div>

@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+#
+# Regenerates every résumé artifact from _data/resume.yml:
+#
+#   assets/files/joel-cano-resume.pdf   public PDF served by the site (commit this)
+#   tmp/joel-cano-resume-private.pdf    same résumé plus email, kept local
+#   tmp/Joel-Cano-Resume.docx           editable doc for Google Docs / Word
+#
+# Run it after any edit to _data/resume.yml, then commit the public PDF.
+#
+# Requires: bundler + Jekyll (ruby 3.4.1, see .mise.toml), pandoc, Google Chrome.
+
+set -euo pipefail
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+RESUME_YML="_data/resume.yml"
+PRIVATE_YML="tmp/resume.private.yml"
+REFERENCE_DOCX="_resume/reference.docx"
+PUBLIC_PDF="assets/files/joel-cano-resume.pdf"
+PRIVATE_PDF="tmp/joel-cano-resume-private.pdf"
+DOCX="tmp/Joel-Cano-Resume.docx"
+DOCX_MD="tmp/resume-docx.md"
+PRINT_PATH="resume/print/index.html"
+CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+PDF_WAIT_SECONDS=90
+
+SCRATCH_DIRS=()
+
+cleanup() {
+  local dir
+  for dir in ${SCRATCH_DIRS[@]+"${SCRATCH_DIRS[@]}"}; do
+    rm -rf "$dir"
+  done
+}
+trap cleanup EXIT
+
+die() {
+  echo "error: $*" >&2
+  exit 1
+}
+
+step() {
+  printf '\n\033[1m==> %s\033[0m\n' "$*"
+}
+
+scratch() {
+  local dir
+  dir="$(mktemp -d)"
+  SCRATCH_DIRS+=("$dir")
+  printf '%s' "$dir"
+}
+
+# ---------------------------------------------------------------------------
+# Toolchain
+# ---------------------------------------------------------------------------
+
+# mise only applies .mise.toml when its shell hook is active, which is not the
+# case for non-interactive shells, so fall back to running through mise directly.
+if bundle exec jekyll --version >/dev/null 2>&1; then
+  run_jekyll() { bundle exec jekyll "$@"; }
+elif command -v mise >/dev/null 2>&1 && mise exec -- bundle exec jekyll --version >/dev/null 2>&1; then
+  run_jekyll() { mise exec -- bundle exec jekyll "$@"; }
+else
+  die "jekyll is not runnable — try 'mise install && bundle install' in $REPO_ROOT"
+fi
+
+command -v pandoc >/dev/null 2>&1 || die "pandoc not found (brew install pandoc)"
+[ -x "$CHROME" ] || die "Google Chrome not found at $CHROME"
+
+# ---------------------------------------------------------------------------
+# Render a built print page to PDF
+# ---------------------------------------------------------------------------
+
+render_pdf() {
+  local source_html="$1" out="$2"
+  local profile chrome_pid waited size last_size
+
+  [ -f "$source_html" ] || die "print page missing: $source_html"
+
+  profile="$(scratch)"
+  mkdir -p "$(dirname "$out")"
+  rm -f "$out"
+
+  "$CHROME" --headless --disable-gpu \
+    --user-data-dir="$profile" \
+    --no-first-run --no-default-browser-check \
+    --no-pdf-header-footer \
+    --print-to-pdf="$out" \
+    "file://$source_html" >/dev/null 2>&1 &
+  chrome_pid=$!
+
+  # Chrome writes the PDF but then keeps running instead of exiting, so wait for
+  # the file to stop growing and shut it down ourselves rather than on exit.
+  waited=0
+  last_size=-1
+  while [ "$waited" -lt "$PDF_WAIT_SECONDS" ]; do
+    if [ -s "$out" ]; then
+      size=$(wc -c < "$out" | tr -d ' ')
+      [ "$size" = "$last_size" ] && break
+      last_size="$size"
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
+
+  kill "$chrome_pid" 2>/dev/null || true
+  wait "$chrome_pid" 2>/dev/null || true
+
+  [ -s "$out" ] || die "Chrome produced no PDF at $out"
+}
+
+# ---------------------------------------------------------------------------
+# 1. Validate the source data
+# ---------------------------------------------------------------------------
+
+step "Validating $RESUME_YML"
+ruby -ryaml -e 'YAML.load_file(ARGV[0])' "$RESUME_YML" ||
+  die "$RESUME_YML is not valid YAML"
+
+private_email=""
+if [ -f "$PRIVATE_YML" ]; then
+  ruby -ryaml -e 'YAML.load_file(ARGV[0])' "$PRIVATE_YML" ||
+    die "$PRIVATE_YML is not valid YAML"
+  private_email="$(ruby -ryaml -e 'puts((YAML.load_file(ARGV[0]) || {})["resume_email"].to_s)' "$PRIVATE_YML")"
+  echo "ok — private contact overlay found"
+else
+  echo "ok — no $PRIVATE_YML; .docx and private PDF will omit contact details"
+fi
+
+# ---------------------------------------------------------------------------
+# 2. Public PDF (no email)
+# ---------------------------------------------------------------------------
+
+step "Building public PDF"
+public_build="$(scratch)"
+run_jekyll build --unpublished --quiet -d "$public_build"
+
+# The print page renders the email only when site.resume_email is set, which
+# should never happen in this build. Verify rather than assume.
+if [ -n "$private_email" ] && grep -qF "$private_email" "$public_build/$PRINT_PATH"; then
+  die "$private_email leaked into the public build — check _layouts/resume-print.html"
+fi
+
+render_pdf "$public_build/$PRINT_PATH" "$PUBLIC_PDF"
+echo "wrote $PUBLIC_PDF"
+
+# ---------------------------------------------------------------------------
+# 3. Private PDF (with email), only when the overlay exists
+# ---------------------------------------------------------------------------
+
+if [ -f "$PRIVATE_YML" ]; then
+  step "Building private PDF"
+  private_build="$(scratch)"
+  run_jekyll build --unpublished --quiet \
+    --config "_config.yml,$PRIVATE_YML" -d "$private_build"
+
+  if [ -n "$private_email" ] && ! grep -qF "$private_email" "$private_build/$PRINT_PATH"; then
+    die "expected $private_email in the private build but it is missing"
+  fi
+
+  render_pdf "$private_build/$PRINT_PATH" "$PRIVATE_PDF"
+  echo "wrote $PRIVATE_PDF"
+fi
+
+# ---------------------------------------------------------------------------
+# 4. Editable .docx
+# ---------------------------------------------------------------------------
+
+step "Building editable .docx"
+mkdir -p "$(dirname "$DOCX")"
+ruby _resume/generate_docx_md.rb > "$DOCX_MD"
+
+reference_args=()
+if [ -f "$REFERENCE_DOCX" ]; then
+  reference_args=(--reference-doc="$REFERENCE_DOCX")
+else
+  echo "warning: $REFERENCE_DOCX missing — using pandoc's default styling." >&2
+  echo "         regenerate it with:" >&2
+  echo "         python3 _resume/make_reference_docx.py tmp/Resume.docx $REFERENCE_DOCX" >&2
+fi
+
+pandoc "$DOCX_MD" -f markdown -t docx ${reference_args[@]+"${reference_args[@]}"} -o "$DOCX"
+echo "wrote $DOCX"
+
+# ---------------------------------------------------------------------------
+# Summary
+# ---------------------------------------------------------------------------
+
+step "Done"
+for artifact in "$PUBLIC_PDF" "$PRIVATE_PDF" "$DOCX"; do
+  [ -f "$artifact" ] && printf '  %-40s %s KB\n' "$artifact" "$(( $(wc -c < "$artifact") / 1024 ))"
+done
+
+cat <<EOF
+
+Next steps:
+  - commit $PUBLIC_PDF (the site links to it)
+  - upload $DOCX to Google Docs when you need to edit by hand
+  - $PRIVATE_PDF and $DOCX stay local; tmp/ is gitignored
+EOF

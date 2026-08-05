@@ -19,12 +19,12 @@
 # in the templates via {{ site.myvariable }}.
 
 title: Joel Cano
-subtitle: "Software Developer & Technology Enthusiast"
+subtitle: "Full Stack Developer & Tech Lead"
 email:
 description: >- # this means to ignore newlines until "baseurl:"
-  Personal website and blog of Joel Cano, software developer passionate about
-  technology, open source, and sharing knowledge. Explore posts about software
-  development, coding insights, and tech adventures.
+  Full stack developer with 15+ years building and shipping web applications in
+  Ruby on Rails, JavaScript, and PostgreSQL — from telecom platforms and CRMs to
+  APIs. Writing about code, architecture, and AI-assisted development.
 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://canito0890.github.io" # the base hostname & protocol for your site
@@ -48,7 +48,7 @@ twitter:
 facebook:
   publisher:
 linkedin:
-  username: # Add if you have LinkedIn
+  username: joel-cano-avila
 
 # Analytics
 analytics:
@@ -90,16 +90,23 @@ kramdown:
   enable_coderay: false
 
 # Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# NOTE: this list REPLACES Jekyll's defaults rather than extending them, so the
+# defaults (Gemfile, vendor/, node_modules) have to be repeated here. Without
+# `bin` and `tmp`, the build would publish bin/build-resume and copy the local
+# resume working files (which carry personal contact info) into the site.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - bin/
+  - tmp/
+  - README.md
+  - AGENTS.md
+  - IMPROVEMENTS.md
 
 # Plugins (previously gems:)
 plugins:
@@ -113,7 +120,7 @@ plugins:
 author:
   name   : "Joel Cano"
   avatar : "/assets/images/bio-photo.svg"
-  bio    : "Software Developer • Tech Enthusiast • Lifelong Learner • Building things one line of code at a time"
+  bio    : "Full Stack Developer • Ruby on Rails & JavaScript • 15+ years shipping web applications"
   location: "Mexico"
   links:
     - label: "Website"
@@ -124,16 +131,19 @@ author:
       url: "https://github.com/canito0890"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
-      url: # Add your LinkedIn URL here if you have one
-    - label: "Twitter"
-      icon: "fab fa-fw fa-twitter-square"
-      url: # Add your Twitter URL here if you have one
+      url: "https://www.linkedin.com/in/joel-cano-avila/"
+    - label: "Résumé"
+      icon: "fas fa-fw fa-file-alt"
+      url: "/resume/"
 
 footer:
   links:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/canito0890"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/joel-cano-avila/"
 
 # Site Header/Navigation
 masthead_title: "Joel Cano" # Overrides the website title displayed in the header

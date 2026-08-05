@@ -1,0 +1,27 @@
+{%- comment -%}
+Shared by /resume/ and the print layout.
+{%- endcomment -%}
+<div class="resume-entries">
+{%- for school in site.data.resume.education %}
+  <div class="resume-entry">
+    <div class="resume-entry__head">
+      <h3 class="resume-entry__role">{{ school.program }}</h3>
+      <span class="resume-entry__dates">
+        {%- if school.start == school.end -%}
+        {{ school.end }}
+        {%- else -%}
+        {{ school.start }} &ndash; {{ school.end }}
+        {%- endif -%}
+      </span>
+    </div>
+    <p class="resume-entry__org">{{ school.institution }}{% if school.location %} <span class="resume-entry__location">&middot; {{ school.location }}</span>{% endif %}</p>
+    {%- if school.highlights and school.highlights.size > 0 %}
+    <ul class="resume-entry__highlights">
+      {%- for highlight in school.highlights %}
+      <li>{{ highlight }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+{%- endfor %}
+</div>

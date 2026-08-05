@@ -1,0 +1,23 @@
+{%- comment -%}
+Shared by /resume/ and the print layout. `status` (e.g. "In Progress") is
+optional and renders as a badge next to the program name.
+{%- endcomment -%}
+<div class="resume-entries">
+{%- for cert in site.data.resume.certifications %}
+  <div class="resume-entry resume-entry--cert">
+    <div class="resume-entry__head">
+      <h3 class="resume-entry__role">{{ cert.program }}
+        {%- if cert.status %} <span class="resume-entry__engagement">{{ cert.status }}</span>{% endif -%}
+      </h3>
+    </div>
+    <p class="resume-entry__org">{{ cert.issuer }}</p>
+    {%- if cert.items and cert.items.size > 0 %}
+    <ul class="resume-entry__highlights">
+      {%- for item in cert.items %}
+      <li>{{ item }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+{%- endfor %}
+</div>

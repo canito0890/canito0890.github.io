@@ -1,0 +1,175 @@
+# Résumé: single source of truth.
+#
+# This one file feeds all four résumé surfaces:
+#   /resume/                        themed page on the site
+#   assets/files/joel-cano-resume.pdf   public PDF (no email)
+#   tmp/joel-cano-resume-private.pdf    private PDF (with email)
+#   tmp/Joel-Cano-Resume.docx           editable doc for Google Docs / Word
+#
+# Edit here, then run `bin/build-resume` to regenerate the PDF and .docx.
+#
+# PRIVACY: no email or phone in this file — it is public in the repo. Those live
+# in tmp/resume.private.yml (gitignored) and are merged only into the private
+# PDF and the .docx. See README.md.
+#
+# Dates are display strings, not YAML dates, so "Present" needs no special case
+# and nothing has to be reformatted downstream.
+
+basics:
+  name: "Joel Cano Ávila"
+  label: "Full Stack Developer"
+  location: "Querétaro, Mexico"
+  availability: "Open to remote roles"
+  website: "https://canito0890.github.io"
+  profiles:
+    - network: "LinkedIn"
+      url: "https://www.linkedin.com/in/joel-cano-avila/"
+      display: "linkedin.com/in/joel-cano-avila"
+      icon: "fab fa-fw fa-linkedin"
+    - network: "GitHub"
+      url: "https://github.com/canito0890"
+      display: "github.com/canito0890"
+      icon: "fab fa-fw fa-github"
+
+summary: >-
+  Full stack developer with 15+ years building and maintaining production web
+  applications in Ruby on Rails, JavaScript, and PostgreSQL. Deep experience in
+  telecom platforms — MVNO and telco CRMs, PBX systems, and the APIs behind
+  them — owning features end to end from data model to deployment. Works with an
+  AI-assisted, spec-driven development workflow.
+
+skills:
+  - name: "Languages"
+    keywords: ["Ruby", "JavaScript", "SQL"]
+  - name: "Backend"
+    keywords:
+      ["Ruby on Rails", "REST API design", "PostgreSQL", "Redis", "Asterisk"]
+  - name: "Frontend"
+    keywords: ["Ember.js", "JavaScript (ES6+)", "HTML & CSS"]
+  - name: "Infrastructure & Ops"
+    keywords: ["AWS", "Docker", "Nginx", "Linux", "Git"]
+  - name: "AI-Assisted Development"
+    keywords:
+      ["Claude Code", "GitHub Copilot", "Kiro", "OpenCode", "Spec-driven development"]
+  - name: "Generative AI (in training)"
+    keywords:
+      ["RAG pipelines", "Vector databases (FAISS, Chroma DB)", "Embeddings & similarity search"]
+
+experience:
+  - company: "Koonol México"
+    location: "Remote / Querétaro"
+    role: "Tech Lead"
+    start: "May 2021"
+    end: "Present"
+    highlights:
+      - "Build and maintain an MVNO CRM and its ancillary APIs in Ruby on Rails with an Ember.js front end."
+      - "Own features end to end — data modeling, API design, front end, and deployment."
+      - "Drive an AI-assisted, spec-driven development workflow across the codebase."
+    tech: ["Ruby on Rails", "Ember.js", "PostgreSQL", "REST APIs"]
+
+  - company: "TheGuruCompany"
+    location: "Querétaro"
+    role: "Full Stack Engineer"
+    engagement: "Contract"
+    start: "July 2017"
+    end: "Present"
+    highlights:
+      - "Ruby on Rails development on client web applications, part-time alongside my primary role."
+      - "Apply AI-assisted development tooling to speed up delivery on smaller codebases."
+    tech: ["Ruby on Rails", "JavaScript", "PostgreSQL"]
+
+  - company: "GurúComm"
+    location: "Querétaro"
+    role: "Full Stack Engineer"
+    start: "January 2018"
+    end: "May 2021"
+    highlights:
+      - "Built a PBX platform on Ruby on Rails and Ember.js, integrating Asterisk for voice telephony."
+      - "Built a telco CRM in Rails + Ember.js used to manage customers, plans, and billing data."
+    tech: ["Ruby on Rails", "Ember.js", "Asterisk", "PostgreSQL"]
+
+  - company: "Kazam App"
+    location: "Mexico City"
+    role: "Tech Lead"
+    start: "March 2017"
+    end: "June 2018"
+    highlights:
+      - "Built a digital loyalty card application, covering backend, API, and client integration."
+    tech: ["Ruby on Rails", "PostgreSQL", "Mobile APIs"]
+
+  - company: "Urbanity Technologies"
+    location: "Mexico City"
+    role: "Lead Developer"
+    engagement: "Contract"
+    start: "January 2018"
+    end: "May 2021"
+    highlights:
+      - "Developed a news and alerting application, including the notification delivery pipeline."
+    tech: ["Ruby on Rails", "JavaScript", "PostgreSQL"]
+
+  - company: "Eucledian"
+    location: "Mexico City"
+    role: "Lead Developer"
+    start: "July 2015"
+    end: "November 2016"
+    highlights:
+      - "Lead developer at a web development agency, delivering client applications across several stacks."
+      - "Handled architecture, implementation, and deployment on concurrent client projects."
+    tech: ["Ruby on Rails", "JavaScript", "MySQL"]
+
+  - company: "Feather Mexico"
+    location: "Mexico City"
+    role: "Lead Developer"
+    start: "July 2011"
+    end: "November 2015"
+    highlights:
+      - "Lead developer at a web development agency, building custom web applications for clients."
+      - "Worked across the full stack, from database design through front-end delivery."
+    tech: ["Ruby on Rails", "JavaScript", "MySQL"]
+
+  - company: "Bisazza"
+    location: "Mexico City"
+    role: "Intern"
+    start: "July 2010"
+    end: "August 2010"
+    highlights: []
+    tech: []
+
+education:
+  - institution: "Tecnológico de Monterrey"
+    location: "Mexico City"
+    program: "Computer Technologies"
+    start: "2009"
+    end: "2014"
+    highlights: []
+
+  - institution: "Massachusetts Institute of Technology"
+    location: "Boston"
+    program: "Visiting Student"
+    start: "2014"
+    end: "2014"
+    highlights:
+      - "Continued development on a Ruby on Rails project to visualize and analyze survey data for the Mega City Logistics Lab."
+
+  - institution: "Tokyo International University (東京国際大学)"
+    location: "Tokyo"
+    program: "Exchange Student"
+    start: "2013"
+    end: "2013"
+    highlights: []
+
+certifications:
+  - issuer: "IBM · Coursera"
+    program: "RAG and Agentic AI Professional Certificate"
+    status: "In Progress"
+    items:
+      - "Build RAG Applications: Get Started"
+      - "Vector Databases for RAG: An Introduction"
+
+  - issuer: "Coursera"
+    program: "Data Science coursework"
+    items:
+      - "Exploratory Data Analysis"
+      - "R Programming"
+      - "Reproducible Research"
+      - "Getting and Cleaning Data"

@@ -819,6 +819,159 @@ tr:hover td {
 }
 
 /* ============================================
+   RESUME
+   Themed /resume/ page. The print/PDF version does NOT use these styles —
+   it has its own inlined light theme in _layouts/resume-print.html.
+   ============================================ */
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.resume-summary {
+  font-size: 1.1em;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--accent-purple);
+  padding-left: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.resume-entries {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.resume-entry {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 8px;
+  padding: 1.25em 1.5em;
+  transition: all var(--transition-medium);
+}
+
+.resume-entry:hover {
+  border-left-color: var(--accent-purple);
+  box-shadow: var(--glow-purple);
+}
+
+.resume-entry__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.resume-entry__role {
+  font-family: var(--font-display);
+  color: var(--accent-cyan);
+  font-size: 1.15em;
+  margin: 0;
+}
+
+.resume-entry__engagement {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-orange);
+  border: 1px solid var(--accent-orange);
+  border-radius: 999px;
+  padding: 0.2em 0.7em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.resume-entry__dates {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.resume-entry__org {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0.35em 0 0.75em;
+}
+
+.resume-entry__location {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.resume-entry__highlights {
+  margin: 0 0 0.85em;
+  padding-left: 1.2em;
+}
+
+.resume-entry__highlights li {
+  color: var(--text-secondary);
+  margin-bottom: 0.35em;
+}
+
+.resume-entry--cert .resume-entry__highlights {
+  margin-bottom: 0;
+}
+
+.resume-entry__tech,
+.resume-skill-group__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+}
+
+.resume-tech {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--accent-cyan);
+  background: var(--bg-code);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.25em 0.65em;
+}
+
+.resume-skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+
+.resume-skill-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.25em;
+}
+
+.resume-skill-group__name {
+  font-family: var(--font-display);
+  color: var(--accent-purple);
+  font-size: 0.95em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75em;
+}
+
+@media (max-width: 480px) {
+  .resume-entry {
+    padding: 1em 1.1em;
+  }
+
+  .resume-entry__dates {
+    font-size: 0.75em;
+  }
+}
+
+/* ============================================
    PRINT STYLES
    ============================================ */
 
